@@ -22,3 +22,36 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Bootstrap-Modifikationen. Werden nach Bootstrap eingebunden, überschreiben daher die alten Werte. */
+
+.navbar-right li {
+    border-left: 1px solid grey;
+}
+
+.navbar-right li:last-of-type {
+    border-right: 1px solid gray;
+}
+
+.container .jumbotron {
+    background-image: url('Images/36001a24-7ab6-492f-a53d-916ddb3e38fc_6.jpg');
+    border-radius: 0;
+}
+
+.jumbotron h1,
+.jumbotron .lead {
+    color: white;
+    text-shadow: 0 1px 1px #333333, 1px 0 1px #333333, 0 -1px 1px #333333, -1px 0 1px #333333;
+}
+
+.btn-index:after {
+    content: ' \00BB';
+}
+
+.input-group {
+    max-width: 280px;
+}
+
+.captcha-solution {
+    margin-left: 1em;
+}
