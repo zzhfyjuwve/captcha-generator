@@ -45,9 +45,9 @@ namespace CaptchaGenerator.Controllers
         public ActionResult Create(CaptchaSettings settings)
         {
             Session["CaptchaSettings"] = settings;
-            var an = new Random();
-            int a = an.Next(100);
-            int b = an.Next(100);
+            var random = new Random();
+            int a = random.Next(100);
+            int b = random.Next(100);
             Session["CaptchaTerm"] = string.Format("{0} + {1}", a, b);
             Session["CaptchaSolution"] = a + b;
 
@@ -56,7 +56,7 @@ namespace CaptchaGenerator.Controllers
             return RedirectToAction("Create");
         }
 
-        public ActionResult Foo()
+        public ActionResult Image()
         {
             CaptchaSettings model = Session["CaptchaSettings"] as CaptchaSettings;
 
@@ -64,25 +64,23 @@ namespace CaptchaGenerator.Controllers
 
             using (var font = new Font(model.FontName, model.FontSize, FontStyle.Bold))
             {
+                StringFormat stringFormat = StringFormat.GenericTypographic;
+                stringFormat.Alignment = StringAlignment.Center;
+                stringFormat.LineAlignment = StringAlignment.Center;
+
                 Size size;
 
                 using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
                 {
-                    size = graphics.MeasureString(text, font).ToSize();
+                    size = graphics.MeasureString(text, font, new PointF(), stringFormat).ToSize();
                 }
 
                 using (var bitmap = new Bitmap(size.Width + font.Height, size.Height + font.Height))
                 using (var graphics = Graphics.FromImage(bitmap))
                 {
                     graphics.Clear(Color.FromName(model.Color.ToString()));
-
                     graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-
-                    graphics.DrawString(text, font, Brushes.Black, graphics.VisibleClipBounds, new StringFormat
-                    {
-                        LineAlignment = StringAlignment.Center,
-                        Alignment = StringAlignment.Center
-                    });
+                    graphics.DrawString(text, font, Brushes.Black, graphics.VisibleClipBounds, stringFormat);
                     bitmap.Save(Response.OutputStream, ImageFormat.Png);
                 }
             }

@@ -14,7 +14,7 @@
         @if (TempData.ContainsKey("ShowCaptcha"))
         {
             <hr />
-            <img src="@Url.RouteUrl("Boo")" alt="Captcha" /><span class="captcha-solution">Lösung: @Session["CaptchaSolution"]</span>
+            <img src="@Url.RouteUrl("CaptchaImageSource")" alt="Captcha" /><span class="captcha-solution">Lösung: @Session["CaptchaSolution"]</span>
             // TempData tut nicht immer was man vermutet...
             TempData.Remove("ShowCaptcha");
         }
