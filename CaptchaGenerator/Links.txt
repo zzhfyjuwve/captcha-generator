@@ -1,0 +1,6 @@
+﻿http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
+http://www.asp.net/web-api/overview/security/individual-accounts-in-web-api
+http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/
+
+http://localhost:39065/Help/Api/POST-api-Account-Register
+http://localhost:39065/api/Account/Register

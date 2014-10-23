@@ -1,8 +1,9 @@
 ﻿using CaptchaGenerator.Models.Captcha;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace CaptchaGenerator.Controllers
@@ -42,7 +43,7 @@ namespace CaptchaGenerator.Controllers
         // POST: Captcha/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CaptchaSettings settings)
+        public async Task<ActionResult> Create(CaptchaSettings settings)
         {
             Session["CaptchaSettings"] = settings;
 
@@ -50,13 +51,12 @@ namespace CaptchaGenerator.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:39065/");
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["CaptchaGenerator.WebApi.HttpClient.BaseAddress"]);
 
-                client.DefaultRequestHeaders.Authorization = Authorization();
+                client.DefaultRequestHeaders.Authorization = (AuthenticationHeaderValue)HttpContext.Application["Authorization"];
 
-                var result = client.PostAsJsonAsync("api/values", settings).Result;
-
-                CaptchaResult captchaResult = result.Content.ReadAsAsync<CaptchaResult>().Result;
+                CaptchaResult captchaResult = await client.PostAsJsonAsync("api/captcha", settings).
+                    Result.Content.ReadAsAsync<CaptchaResult>();
 
                 Session["CaptchaResult"] = captchaResult;
             }
@@ -67,6 +67,11 @@ namespace CaptchaGenerator.Controllers
         public ActionResult Image()
         {
             return new FileContentResult(((CaptchaResult)Session["CaptchaResult"]).Image, "image/png");
+        }
+
+        public JsonResult IsCorrect(int solution)
+        {
+            return Json(((CaptchaResult)Session["CaptchaResult"]).Solution == solution, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Captcha/Edit/5
@@ -110,41 +115,6 @@ namespace CaptchaGenerator.Controllers
             catch
             {
                 return View();
-            }
-        }
-
-        // nicht aufrufbar, weil privat
-        private AuthenticationHeaderValue Authorization()
-        {
-            var authorization = Session["Authorization"] as AuthenticationHeaderValue;
-
-            if (authorization != null)
-            {
-                return authorization;
-            }
-
-            using (var client = new HttpClient())
-            {
-                // todo: in web.config
-                client.BaseAddress = new Uri("http://localhost:39065/");
-
-                var formUrlEncodedContent = new FormUrlEncodedContent(new Dictionary<string, string>
-                {
-                    // todo: in web.config
-                    {"grant_type", "password"},
-                    {"username","user@example.com"},
-                    {"password","P_ssw0rd"}
-                });
-
-                HttpResponseMessage response = client.PostAsync("/Token", formUrlEncodedContent).Result;
-
-                var result = response.Content.ReadAsAsync<IDictionary<string, string>>().Result;
-
-                authorization = new AuthenticationHeaderValue(result["token_type"], result["access_token"]);
-
-                Session["Authorization"] = authorization;
-
-                return authorization;
             }
         }
     }

@@ -117,28 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationName" xml:space="preserve">
-    <value>iKaptcha</value>
-  </data>
-  <data name="Blue" xml:space="preserve">
-    <value>Blue</value>
-  </data>
-  <data name="Color" xml:space="preserve">
-    <value>Color</value>
-  </data>
-  <data name="FontName" xml:space="preserve">
-    <value>Font name</value>
-  </data>
-  <data name="FontSize" xml:space="preserve">
-    <value>Font size</value>
-  </data>
-  <data name="Green" xml:space="preserve">
-    <value>Green</value>
-  </data>
-  <data name="Red" xml:space="preserve">
-    <value>Red</value>
-  </data>
   <data name="Solution" xml:space="preserve">
-    <value>Solution</value>
+    <value>Ihre Lösung ist leider falsch. Versuchen Sie es noch einmal...</value>
   </data>
 </root>

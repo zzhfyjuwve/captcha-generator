@@ -9,16 +9,17 @@ namespace CaptchaGenerator
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Muss oben stehen und web.config-eintrag haben!
+            // Muss ganz oben stehen (wegen des Matchings) und einen Web.config-Eintrag haben
+            // (damit der Punkt keine Probleme verursacht).
             routes.MapRoute(
-                name: "CaptchaImageSource",
-                url: "Captcha/{id}.png",
+                name: "CaptchaImage",
+                url: "captcha/{id}.png",
                 defaults: new { controller = "Captcha", action = "Image", id = 0 }
             );
 
             routes.MapRoute(
                 name: "CreateCaptcha",
-                url: "Create",
+                url: "create",
                 defaults: new { controller = "Captcha", action = "Create" }
             );
 

@@ -22,14 +22,14 @@ namespace CaptchaGenerator.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class ErrorMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal ErrorMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace CaptchaGenerator.Localization {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CaptchaGenerator.Localization.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CaptchaGenerator.Localization.ErrorMessages", typeof(ErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,70 +61,7 @@ namespace CaptchaGenerator.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to iKaptcha.
-        /// </summary>
-        public static string ApplicationName {
-            get {
-                return ResourceManager.GetString("ApplicationName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Blue.
-        /// </summary>
-        public static string Blue {
-            get {
-                return ResourceManager.GetString("Blue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Color.
-        /// </summary>
-        public static string Color {
-            get {
-                return ResourceManager.GetString("Color", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Font name.
-        /// </summary>
-        public static string FontName {
-            get {
-                return ResourceManager.GetString("FontName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Font size.
-        /// </summary>
-        public static string FontSize {
-            get {
-                return ResourceManager.GetString("FontSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Green.
-        /// </summary>
-        public static string Green {
-            get {
-                return ResourceManager.GetString("Green", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Red.
-        /// </summary>
-        public static string Red {
-            get {
-                return ResourceManager.GetString("Red", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Solution.
+        ///   Looks up a localized string similar to Sorry, but your solution is wrong. Try it again....
         /// </summary>
         public static string Solution {
             get {

@@ -135,4 +135,7 @@
   <data name="Red" xml:space="preserve">
     <value>Rot</value>
   </data>
+  <data name="Solution" xml:space="preserve">
+    <value>Lösung</value>
+  </data>
 </root>

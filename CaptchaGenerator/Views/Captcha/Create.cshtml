@@ -4,8 +4,6 @@
 
 @{
     ViewBag.Title = "Create";
-
-    var captchaResult = (CaptchaResult)Session["CaptchaResult"];
 }
 
 <h2>Create</h2>
@@ -18,7 +16,11 @@
         @if (TempData.ContainsKey("ShowCaptcha"))
         {
             <hr />
-            <img src="@Url.RouteUrl("CaptchaImageSource")" alt="Captcha" /><span class="captcha-solution">Lösung: @captchaResult.Solution</span>
+            <img src="@Url.RouteUrl("CaptchaImage")" alt="Captcha" />
+            @Html.LabelFor(x => x.Solution, new { @class = "captcha-solution" })<text>:</text>
+            @Html.TextBoxFor(x => x.Solution, new { @class = "captcha-solution", type = "number" })
+            <span class="captcha-solution">@Html.ValidationMessageFor(x => x.Solution)</span>
+
             // TempData tut nicht immer was man vermutet...
             TempData.Remove("ShowCaptcha");
         }
