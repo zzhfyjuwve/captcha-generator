@@ -1,7 +1,11 @@
-﻿@model CaptchaGenerator.Models.Captcha.CaptchaViewModel
+﻿@using CaptchaGenerator.Models.Captcha
+
+@model CaptchaViewModel
 
 @{
     ViewBag.Title = "Create";
+
+    var captchaResult = (CaptchaResult)Session["CaptchaResult"];
 }
 
 <h2>Create</h2>
@@ -14,7 +18,7 @@
         @if (TempData.ContainsKey("ShowCaptcha"))
         {
             <hr />
-            <img src="@Url.RouteUrl("CaptchaImageSource")" alt="Captcha" /><span class="captcha-solution">Lösung: @Session["CaptchaSolution"]</span>
+            <img src="@Url.RouteUrl("CaptchaImageSource")" alt="Captcha" /><span class="captcha-solution">Lösung: @captchaResult.Solution</span>
             // TempData tut nicht immer was man vermutet...
             TempData.Remove("ShowCaptcha");
         }

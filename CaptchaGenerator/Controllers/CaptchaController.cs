@@ -1,8 +1,8 @@
 ﻿using CaptchaGenerator.Models.Captcha;
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Mvc;
 
 namespace CaptchaGenerator.Controllers
@@ -45,47 +45,28 @@ namespace CaptchaGenerator.Controllers
         public ActionResult Create(CaptchaSettings settings)
         {
             Session["CaptchaSettings"] = settings;
-            var random = new Random();
-            int a = random.Next(100);
-            int b = random.Next(100);
-            Session["CaptchaTerm"] = string.Format("{0} + {1}", a, b);
-            Session["CaptchaSolution"] = a + b;
 
             TempData["ShowCaptcha"] = true;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:39065/");
+
+                client.DefaultRequestHeaders.Authorization = Authorization();
+
+                var result = client.PostAsJsonAsync("api/values", settings).Result;
+
+                CaptchaResult captchaResult = result.Content.ReadAsAsync<CaptchaResult>().Result;
+
+                Session["CaptchaResult"] = captchaResult;
+            }
 
             return RedirectToAction("Create");
         }
 
         public ActionResult Image()
         {
-            CaptchaSettings model = Session["CaptchaSettings"] as CaptchaSettings;
-
-            string text = Session["CaptchaTerm"] as string;
-
-            using (var font = new Font(model.FontName, model.FontSize, FontStyle.Bold))
-            {
-                StringFormat stringFormat = StringFormat.GenericTypographic;
-                stringFormat.Alignment = StringAlignment.Center;
-                stringFormat.LineAlignment = StringAlignment.Center;
-
-                Size size;
-
-                using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
-                {
-                    size = graphics.MeasureString(text, font, new PointF(), stringFormat).ToSize();
-                }
-
-                using (var bitmap = new Bitmap(size.Width + font.Height, size.Height + font.Height))
-                using (var graphics = Graphics.FromImage(bitmap))
-                {
-                    graphics.Clear(Color.FromName(model.Color.ToString()));
-                    graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-                    graphics.DrawString(text, font, Brushes.Black, graphics.VisibleClipBounds, stringFormat);
-                    bitmap.Save(Response.OutputStream, ImageFormat.Png);
-                }
-            }
-
-            return new ContentResult { ContentType = "image/png" };
+            return new FileContentResult(((CaptchaResult)Session["CaptchaResult"]).Image, "image/png");
         }
 
         // GET: Captcha/Edit/5
@@ -129,6 +110,41 @@ namespace CaptchaGenerator.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        // nicht aufrufbar, weil privat
+        private AuthenticationHeaderValue Authorization()
+        {
+            var authorization = Session["Authorization"] as AuthenticationHeaderValue;
+
+            if (authorization != null)
+            {
+                return authorization;
+            }
+
+            using (var client = new HttpClient())
+            {
+                // todo: in web.config
+                client.BaseAddress = new Uri("http://localhost:39065/");
+
+                var formUrlEncodedContent = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    // todo: in web.config
+                    {"grant_type", "password"},
+                    {"username","user@example.com"},
+                    {"password","P_ssw0rd"}
+                });
+
+                HttpResponseMessage response = client.PostAsync("/Token", formUrlEncodedContent).Result;
+
+                var result = response.Content.ReadAsAsync<IDictionary<string, string>>().Result;
+
+                authorization = new AuthenticationHeaderValue(result["token_type"], result["access_token"]);
+
+                Session["Authorization"] = authorization;
+
+                return authorization;
             }
         }
     }

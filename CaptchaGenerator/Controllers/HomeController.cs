@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CaptchaGenerator.Controllers
@@ -23,7 +21,6 @@ namespace CaptchaGenerator.Controllers
             //return View();
             //alt
 
-
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
             // http://www.asp.net/web-api/overview/security/individual-accounts-in-web-api
 
@@ -31,13 +28,13 @@ namespace CaptchaGenerator.Controllers
             //{
             //    // TODO - Send HTTP requests
 
-            //     client.BaseAddress = Request.Url;
+            //    client.BaseAddress = Request.Url;
             //    client.DefaultRequestHeaders.Accept.Clear();
             //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             //    var gizmo = new RegisterBindingModel
             //    {
-            //        Email = "foo@bar.de",
+            //        Email = "user@example.com",
             //        Password = "P_ssw0rd",
             //        ConfirmPassword = "P_ssw0rd"
             //    };
@@ -47,6 +44,22 @@ namespace CaptchaGenerator.Controllers
 
             //}
 
+            /*
+
+            http://localhost:39065/Help/Api/POST-api-Account-Register
+
+            POSTMAN:
+
+            http://localhost:39065/api/Account/Register
+
+            {
+              "Email": "user@example.com",
+              "Password": "P_ssw0rd",
+              "ConfirmPassword": "P_ssw0rd"
+            }
+
+             */
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:39065/");//Request.Url;
@@ -54,7 +67,7 @@ namespace CaptchaGenerator.Controllers
                 var formUrlEncodedContent = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
                     {"grant_type", "password"},
-                    {"username","foo@bar.de"},
+                    {"username","user@example.com"},
                     {"password","P_ssw0rd"}
                 });
 
@@ -70,8 +83,6 @@ namespace CaptchaGenerator.Controllers
             }
 
             return View();
-
-
         }
     }
 }

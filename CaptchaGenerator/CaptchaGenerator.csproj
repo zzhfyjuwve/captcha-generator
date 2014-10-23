@@ -190,6 +190,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Captcha\CaptchaResult.cs" />
     <Compile Include="Models\Captcha\CaptchaViewModel.cs" />
     <Compile Include="Models\Captcha\CaptchaSettings.cs" />
     <Compile Include="Models\IdentityModels.cs" />

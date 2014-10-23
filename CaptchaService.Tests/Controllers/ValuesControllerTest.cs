@@ -49,7 +49,7 @@ namespace CaptchaService.Tests.Controllers
             ValuesController controller = new ValuesController();
 
             // Act
-            controller.Post("value");
+            //controller.Post("value");
 
             // Assert
         }
