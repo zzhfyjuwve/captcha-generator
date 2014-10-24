@@ -52,6 +52,14 @@ textarea {
     max-width: 280px;
 }
 
-.captcha-solution {
-    margin-left: 1em;
+.image-display-item {
+    margin-bottom: 1em;
+}
+
+.image-display-list img {
+    height: 2em;
+}
+
+.solution {
+    margin-top: 1em;
 }

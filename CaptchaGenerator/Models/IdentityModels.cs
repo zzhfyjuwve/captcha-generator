@@ -29,5 +29,7 @@ namespace CaptchaGenerator.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<CaptchaEntities.Captcha.CaptchaEntity> CaptchaEntities { get; set; }
     }
 }

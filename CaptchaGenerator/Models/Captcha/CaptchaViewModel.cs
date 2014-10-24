@@ -1,4 +1,5 @@
-﻿using CaptchaGenerator.Localization;
+﻿using CaptchaEntities.Captcha;
+using CaptchaGenerator.Localization;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing.Text;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Web.Mvc;
 
 namespace CaptchaGenerator.Models.Captcha
 {
-    public class CaptchaViewModel
+    public class CaptchaViewModel : CaptchaEntity
     {
         public SelectList FontNames
         {
@@ -19,9 +20,12 @@ namespace CaptchaGenerator.Models.Captcha
         public CaptchaSettings Settings { get; set; }
 
         [Required]
+        // Wir geben zusätzlich die ID mit, damit der Ajax-Aufruf auf keinen Fall gecached wird...
         [Remote("IsCorrect", "Captcha",
-            ErrorMessageResourceName = "Solution", ErrorMessageResourceType = typeof(ErrorMessages))]
+            ErrorMessageResourceName = "WrongSolution",
+            ErrorMessageResourceType = typeof(Messages),
+            AdditionalFields = "Id")]
         [Display(Name = "Solution", ResourceType = typeof(Resources))]
-        public string Solution { get; set; }
+        public new int Solution { get; set; }
     }
 }

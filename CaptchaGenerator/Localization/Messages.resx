@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Solution" xml:space="preserve">
-    <value>Sorry, but your solution is wrong. Try it again...</value>
+  <data name="NoInteger" xml:space="preserve">
+    <value>Please enter a number.</value>
+  </data>
+  <data name="WrongSolution" xml:space="preserve">
+    <value>Sorry, but your solution is wrong. Maybe you want to try again?</value>
   </data>
 </root>
