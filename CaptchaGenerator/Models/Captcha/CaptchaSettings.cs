@@ -1,4 +1,4 @@
-﻿using CaptchaGenerator.Enums;
+﻿using CaptchaEntities.Captcha.Enums;
 using CaptchaGenerator.Localization;
 using System.ComponentModel.DataAnnotations;
 
