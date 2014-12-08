@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using CaptchaEntities.Captcha;
 using CaptchaGenerator.Models;
 using CaptchaGenerator.Models.Captcha;
@@ -58,8 +58,12 @@ namespace CaptchaGenerator.Controllers
 
                 client.DefaultRequestHeaders.Authorization = (AuthenticationHeaderValue)HttpContext.Application["Authorization"];
 
-                CaptchaEntity captchaEntity = await client.PostAsJsonAsync("api/captcha", settings).
-                    Result.Content.ReadAsAsync<CaptchaEntity>();
+                var httpResponseMessage =  client.PostAsJsonAsync("api/captcha", settings).Result;
+
+                httpResponseMessage.EnsureSuccessStatusCode();
+
+                // Beispiel für einen asynchronen Aufruf.
+                var captchaEntity = await httpResponseMessage.Content.ReadAsAsync<CaptchaEntity>();
 
                 // Erst speichern, sonst wird die ID nicht automatisch erzeugt.
                 db.CaptchaEntities.Add(captchaEntity);
