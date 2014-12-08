@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Http;
@@ -43,9 +43,12 @@ namespace CaptchaGenerator
                     { "password", ConfigurationManager.AppSettings["CaptchaGenerator.WebApi.Account.Password"] }
                 });
 
-                HttpResponseMessage response = client.PostAsync("/Token", formUrlEncodedContent).Result;
+                var httpResponseMessage = client.PostAsync("/Token", formUrlEncodedContent).Result;
 
-                var result = response.Content.ReadAsAsync<IDictionary<string, string>>().Result;
+                httpResponseMessage.EnsureSuccessStatusCode();
+
+                // Beispiel für einen synchronen Aufruf.
+                var result = httpResponseMessage.Content.ReadAsAsync<IDictionary<string, string>>().Result;
 
                 authorization = new AuthenticationHeaderValue(result["token_type"], result["access_token"]);
 
