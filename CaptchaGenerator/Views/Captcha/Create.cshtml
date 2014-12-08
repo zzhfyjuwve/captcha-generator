@@ -1,4 +1,4 @@
-﻿@using CaptchaGenerator.Models.Captcha
+@using CaptchaGenerator.Models.Captcha
 
 @model CaptchaViewModel
 
@@ -79,7 +79,7 @@
 }
 
 <div>
-    @Html.ActionLink("Zur Galerie", "Index", "Gallery")
+    @Html.ActionLink("Zur Galerie", string.Empty, "Gallery")
 </div>
 
 @section Scripts {
