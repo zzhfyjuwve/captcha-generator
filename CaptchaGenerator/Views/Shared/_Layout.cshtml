@@ -1,4 +1,4 @@
-﻿@using CaptchaGenerator.Localization
+@using CaptchaGenerator.Localization
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,11 +18,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Home", string.Empty, "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Über " + @Resources.ApplicationName, "About", "Home")</li>
+                    <li>@Html.ActionLink("Galerie", string.Empty, "Gallery")</li>
                     @Html.Partial("_LoginPartial")
                 </ul>
             </div>
