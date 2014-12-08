@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CaptchaEntities.Captcha.CaptchaEntity>
+@using CaptchaGenerator.Localization
+
+@model IEnumerable<CaptchaEntities.Captcha.CaptchaEntity>
 
 @{
     ViewBag.Title = "Index";
@@ -30,7 +32,7 @@
         </td>
         <td>
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink( @Resources.Delete, "Delete", new { id = item.Id } )
         </td>
     </tr>
 }
