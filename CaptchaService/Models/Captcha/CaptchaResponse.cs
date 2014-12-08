@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
@@ -10,8 +10,8 @@ namespace CaptchaService.Models.Captcha
     {
         public CaptchaResponse(CaptchaRequest request)
         {
-            var a = new Random().Next(10);
-            var b = new Random(a).Next(10);
+            var a = new Random().Next(100);
+            var b = new Random(a).Next(100);
 
             var term = string.Format("{0} + {1}", a, b);
             Solution = a + b;
